@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Titan+One&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="./js/main.js" type="module" defer></script>
+	<title>Tic Tac Toe</title>
+</head>
+<body>
+	<div id="table" style="display:none">
+		<span></span>
+		<div class="title" id="cur-player">Player 1 move</div>
+		<div id="grid"></div>
+	</div>
+
+	<div class="menu">
+		<div class="page active" style="min-width:31.3vmin"> <!-- .active -->
+			<div class="inline centered">
+				<div class="text title">Options</div>
+			</div>
+			<hr>
+			<div class="slider" title="Enemy" tabindex="0">
+				<span class="selected">Me</span> <!-- .selected -->
+				<span>AI</span>
+				<span>Net</span>
+			</div>
+
+			<div class="slider" title="AI Difficulty" tabindex="0"> <!-- .disable  -->
+				<span class="selected">Easy</span> <!-- .blocked  -->
+				<span>Medium</span>
+				<span>Hard</span>
+				<span>Unreal</span>
+			</div>
+
+			<div class="inline centered" title="Grid Size"> <!-- .fail -->
+				<input type="number" value="3" min="3" max="7">
+				<span>X</span>
+				<input type="number" value="3" min="3" max="7">
+			</div>
+
+			<div class="slider" title="Win Line Length" tabindex="0"> <!-- .disable --> <!-- .centered -->
+				<span class="selected">3</span>
+				<span>4</span>
+				<span>5</span>
+				<span>6</span>
+				<span>7</span>
+			</div>
+
+			<div class="slider" title="First Turn" tabindex="0">
+				<span class="selected">P1</span>
+				<span>P2</span>
+			</div>
+
+			<div class="inline">
+				<div class="button" tabindex="0">Play</div>
+			</div>
+		</div>
+
+		<div class="page">
+			<div class="text title">Room settings</div>
+			<div class="inline centered" title="Room ID">
+				<input type="text" maxlength="6" style="width:22vmin">
+			</div>
+
+			<div class="inline">
+				<div class="button" tabindex="0">Host</div>
+				<div class="button" tabindex="0">Join</div>
+			</div>
+		</div>
+
+		<div class="page">
+			<div class="text title"></div> <!-- .loading --> <!-- .error -->
+			<div class="text selectable"></div>
+		</div>
+
+		<div class="page">
+			<div class="text title">1'st player win</div>
+			<div class="inline">
+				<div class="button">Restart</div>
+				<div class="button">Exit</div>
+			</div>
+			<div class="text readycheck"></div>
+		</div>
+	</div>
+</body>
+</html>

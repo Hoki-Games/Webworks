@@ -1,0 +1,8 @@
+{
+	"include": ["main.ts"],
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "CommonJS",
+		"esModuleInterop": true
+	}
+}

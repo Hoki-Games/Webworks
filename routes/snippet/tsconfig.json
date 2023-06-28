@@ -1,0 +1,11 @@
+{
+    "include": ["./src/**/*"],
+    "exclude": ["./src/**/_*"],
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "noEmitOnError": true,
+        "outDir": "./dist/js",
+        "rootDir": "./src"
+    }
+}

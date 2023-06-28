@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="./js/main.js" type="module"></script>
+	<title>Snippet</title>
+</head>
+<body>
+	<div class="container">
+		<div id="meter">
+			<canvas id="display"></canvas>
+			<div id="meter-text"></div>
+		</div>
+		<div class="inputs">
+			<div>
+				<span>start:</span><input class="val" type="tel" id="sval" value="0" pattern="-?\d+(\.\d+)?">
+			</div>
+			<div>
+				<span>diff:</span><input class="val" type="tel" id="dval" value="1" pattern="-?\d+(\.\d+)?">
+			</div>
+			<div class="expandable">
+				<div>
+					<span>value:</span><input class="val" type="tel" id="ival" value="0" pattern="-?\d+(\.\d+)?">
+				</div>
+				<div>
+					<span>result:</span><span class="res" id="rval"></span>
+				</div>
+				<div id="expander"><div>></div></div>
+			</div>
+		</div>
+		<div class="textbox">
+			<textarea id="input" rows="20" cols="100" placeholder="Write your code here...">return v / d - s;</textarea>
+			<div id="submit">▶</div>
+		</div>
+		<div class="dropdown-list closed">
+			<div id="tab">Tasks:</div>
+			<div id="list"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+@import url("./menu.css");
+
+body {
+	display: grid;
+	grid-template: auto max-content auto / auto max-content auto;
+	background-color: #a7d6c3;
+	background-image: url('../img/dark-stripes-light.png');
+	background-size: 4vmin;
+	margin: 0;
+	overflow: hidden;
+	height: 100vh;
+}
+
+#table {
+	--grid-x: 3; /* [3, 7] */
+	--grid-y: 3; /* [3, 7] */
+
+	--coef-x: min(calc(var(--grid-x) / var(--grid-y)), 1);
+	--coef-y: min(calc(var(--grid-y) / var(--grid-x)), 1);
+
+	--max-grid-size: max(var(--grid-x), var(--grid-y));
+
+	--side-size: 88vmin;
+	--border-radius: calc((var(--side-size) * .07) / var(--max-grid-size) * 3);
+	--gap-size: calc(var(--side-size) / 60);
+
+	grid-area: 2 / 2 / 3 / 3;
+
+	position: relative;
+	overflow: hidden;
+	z-index: 0;
+
+	width: calc(var(--side-size) * var(--coef-x) + var(--gap-size) * 2);
+	padding-bottom: 1vmin;
+
+	background-color: #473d32;
+	box-shadow: 0 -1vmin 0 0 #1d1a05 inset;
+
+	border-radius: var(--border-radius);
+}
+
+#table span {
+	position: absolute;
+	z-index: -1;
+
+	top: -3px;
+	left: 101%;
+	width: 100vh;
+	height: 100vw;
+
+	transform-origin: top left;
+	transform: rotate(90deg);
+
+	background-image: url('../img/wood-pattern.png');
+	background-position-x: -6vmin;
+	background-size: 25vmin;
+	opacity: 0.5;
+}
+
+#table .title {
+	line-height: 6vmin;
+	margin: 0;
+
+	text-align: center;
+	user-select: none;
+	font-size: 4.5vmin;
+
+	text-shadow: 0 0.3vmin 0 #dd2121;
+	color: #fffc00;
+}
+
+#table .title.second {
+	color: #13a1e8;
+	text-shadow: 0 0.3vmin 0 #0044ff;
+}
+
+#grid {
+	height: calc(var(--side-size) * var(--coef-y));
+	display: grid;
+
+	grid-template-columns: auto auto auto;
+
+	padding: var(--gap-size);
+	gap: var(--gap-size);
+}
+
+#grid div {
+	border-radius: calc(var(--border-radius) - var(--gap-size));
+
+	background-size: 85%;
+	background-color: bisque;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	cursor: pointer;
+
+	transition: box-shadow .4s;
+}
+
+#grid div:is(.cross, .circle) {
+	position: relative;
+	cursor: default;
+	box-shadow: 0 calc(.5vmin / var(--max-grid-size) * 3) 0 0 #483918 inset;
+	background-color: #e7c8a8;
+	overflow: hidden;
+}
+
+#grid div::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	transition: transform .4s;
+}
+
+#grid div.cross::after {
+	width: 100%;
+	transform: translateY(calc(.5vmin / var(--max-grid-size) * 3));
+	background-image: url('../img/cross.svg');
+	filter: invert(58%) sepia(30%) saturate(2984%) hue-rotate(319deg) brightness(93%) contrast(126%);
+	background-size: cover;
+}
+
+.animod #grid div.cross::after {
+	background-image: url('../img/megumin.png');
+	filter: none;
+}
+
+.animod #grid div.circle::after {
+	background-image: url('../img/aqua.png');
+	filter: none;
+}
+
+#grid div.circle::after {
+	width: 100%;
+	transform: translateY(calc(.5vmin / var(--max-grid-size) * 3));
+	background-image: url('../img/circle.svg');
+	filter: invert(40%) sepia(97%) saturate(677%) hue-rotate(155deg) brightness(101%) contrast(102%);
+	background-size: cover;
+}
+
+.selectable {
+	user-select: text;
+	color: #ff7a7a;
+	text-shadow: 0 0.3vmin 0 #ab4444;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-family: 'Titan One', cursive;
+	font-size: 3.4vmin;
+}
+
+.readycheck {
+	font-size: 2.2vmin;
+	font-family: revert;
+	font-weight: bold;
+	color: #3f85b0;
+	margin-top: -1.2vmin;
+}
