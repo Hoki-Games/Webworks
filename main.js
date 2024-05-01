@@ -27,15 +27,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const fs_1 = require("fs");
-const path_1 = require("path");
+const node_https_1 = __importDefault(require("node:https"));
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
 const express_ws_1 = __importDefault(require("express-ws"));
 const users_1 = require("./users");
-const PORT = 80;
-const FAVICON_PATH = (0, path_1.resolve)(__dirname + '/favicon.ico');
-const NOT_FOUND_PATH = (0, path_1.resolve)(__dirname + '/404.html');
-const ERROR_PATH = (0, path_1.resolve)(__dirname + '/500.html');
-const GAMELIST_PATH = (0, path_1.resolve)(__dirname + '/gamelist.html');
+const PORT = +process.env['PORT'];
+const CERT_DIR = process.env['CERT_DIR'];
+const FAVICON_PATH = (0, node_path_1.resolve)(__dirname + '/favicon.ico');
+const NOT_FOUND_PATH = (0, node_path_1.resolve)(__dirname + '/404.html');
+const ERROR_PATH = (0, node_path_1.resolve)(__dirname + '/500.html');
+const GAMELIST_PATH = (0, node_path_1.resolve)(__dirname + '/gamelist.html');
 const app = (0, express_1.default)();
 (0, express_ws_1.default)(app);
 Promise.all([
@@ -50,19 +52,19 @@ Promise.all([
         .get('/', (req, res) => {
         if (!req.originalUrl.endsWith('/'))
             return res.redirect('./game/');
-        (0, fs_1.createReadStream)(GAMELIST_PATH).pipe(res);
+        (0, node_fs_1.createReadStream)(GAMELIST_PATH).pipe(res);
     })
         .use('/tictactoe', tictactoe.default)
         .use('/snippet', snippet.default)
         .ws('/rooms', rooms.default))
         //? Favicon File
-        .get('/favicon.ico', (req, res) => (0, fs_1.createReadStream)(FAVICON_PATH).pipe(res))
+        .get('/favicon.ico', (req, res) => (0, node_fs_1.createReadStream)(FAVICON_PATH).pipe(res))
         //? Default Redirect
         .get('/', (req, res) => res.redirect('./game/'))
         //? Not Found Page
         .use((req, res) => res.status(404).format({
         html() {
-            (0, fs_1.createReadStream)(NOT_FOUND_PATH).pipe(res);
+            (0, node_fs_1.createReadStream)(NOT_FOUND_PATH).pipe(res);
         },
         json() {
             res.json({ error: 'Not Found' });
@@ -76,7 +78,7 @@ Promise.all([
         console.error(`We got some error here [${req.method} ${req.path}]:\n${err.stack}`);
         res.status(500).format({
             html() {
-                (0, fs_1.createReadStream)(ERROR_PATH).pipe(res);
+                (0, node_fs_1.createReadStream)(ERROR_PATH).pipe(res);
             },
             json() {
                 res.json({ error: 'Internal Server Error' });
@@ -85,7 +87,10 @@ Promise.all([
                 res.send('Internal Server Error');
             }
         });
-    }))
-        //? Server Start
-        .listen(PORT, () => console.log(`http://localhost:${PORT} is listening...`));
+    }));
+    //? Server Start
+    node_https_1.default.createServer({
+        cert: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'fullchain.pem')),
+        key: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'privkey.pem'))
+    }, app).listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`));
 });
