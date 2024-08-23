@@ -17,8 +17,9 @@ expressWs(app)
 Promise.all([
 	import('./routes/tictactoe'),
 	import('./routes/rooms'),
-	import('./routes/snippet')
-]).then(([tictactoe, rooms, snippet]) => {
+	import('./routes/snippet'),
+	import('./routes/wengine')
+]).then(([tictactoe, rooms, snippet, wengine]) => {
 	app
 
 
@@ -38,6 +39,12 @@ Promise.all([
 		.use('/snippet', snippet.default)
 
 		.ws('/rooms', rooms.default)
+	)
+
+	//? Demos Router
+
+	.use('/demo', express.Router()
+		.use('/wengine', wengine.default)
 	)
 
 

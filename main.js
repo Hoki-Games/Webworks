@@ -41,8 +41,9 @@ const app = (0, express_1.default)();
 Promise.all([
     Promise.resolve().then(() => __importStar(require('./routes/tictactoe'))),
     Promise.resolve().then(() => __importStar(require('./routes/rooms'))),
-    Promise.resolve().then(() => __importStar(require('./routes/snippet')))
-]).then(([tictactoe, rooms, snippet]) => {
+    Promise.resolve().then(() => __importStar(require('./routes/snippet'))),
+    Promise.resolve().then(() => __importStar(require('./routes/wengine')))
+]).then(([tictactoe, rooms, snippet, wengine]) => {
     app
         //? Games Router
         .use('/game', express_1.default.Router()
@@ -55,6 +56,9 @@ Promise.all([
         .use('/tictactoe', tictactoe.default)
         .use('/snippet', snippet.default)
         .ws('/rooms', rooms.default))
+        //? Demos Router
+        .use('/demo', express_1.default.Router()
+        .use('/wengine', wengine.default))
         //? Favicon File
         .get('/favicon.ico', (req, res) => (0, fs_1.createReadStream)(FAVICON_PATH).pipe(res))
         //? Default Redirect

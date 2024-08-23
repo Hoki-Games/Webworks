@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WEngine Demo</title>
+	<script src="./js/main.js" type="module"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap" rel="stylesheet">
+	<style>
+		body {
+			margin: 0;
+			background-color: darkslategray;
+			overflow: hidden;
+		}
+
+		#display {
+			width: 100vw;
+			height: 100vh;
+		}
+
+		#fps {
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin: 8px;
+			font-size: 2em;
+			font-weight: bold;
+			font-family: sans-serif;
+			color: gold;
+		}
+
+		#verts {
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			width: 50vw;
+		}
+
+		#title {
+			position: absolute;
+			top: calc(50vh - 0.5em);
+			left: 0;
+			width: 100vw;
+			text-align: center;
+			font-size: 12em;
+			font-weight: bold;
+			font-family: 'Nunito';
+			opacity: 0;
+			color: rgba(0, 195, 255);
+			user-select: none;
+			line-height: 1em;
+		}
+
+		#title.pulse {
+			animation: pulse 1.5s ease-in-out infinite alternate;
+		}
+
+		@keyframes pulse {
+			from {
+				transform: scale(1);
+			}
+			to {
+				transform: scale(1.05);
+			}
+		}
+	</style>
+</head>
+<body>
+	<canvas id="display"></canvas>
+	<span id="fps" hidden>N/A</span>
+	<a href="https://github.com/Hoki-Games/WEngine" id="title" class="pulse"><span>W</span><span>E</span><span>n</span><span>g</span><span>i</span><span>n</span><span>e</span></span>
+</body>
+</html>
