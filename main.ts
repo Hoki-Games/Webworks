@@ -1,10 +1,12 @@
 import express from 'express'
-import { createReadStream } from 'fs'
-import { resolve } from 'path'
+import https from 'node:https'
+import { createReadStream, readFileSync } from 'node:fs'
+import { resolve, join } from 'node:path'
 import expressWs from 'express-ws'
 import { manageCookies } from './users'
 
-const PORT = 80
+const PORT = +process.env['PORT']
+const CERT_DIR = process.env['CERT_DIR']
 const FAVICON_PATH = resolve(__dirname + '/favicon.ico')
 const NOT_FOUND_PATH = resolve(__dirname + '/404.html')
 const ERROR_PATH = resolve(__dirname + '/500.html')
@@ -97,5 +99,8 @@ Promise.all([
 
 	//? Server Start
 
-	.listen(PORT, () => console.log(`http://localhost:${PORT} is listening...`))
+	https.createServer({
+		cert: readFileSync(join(CERT_DIR, 'fullchain.pem')),
+		key: readFileSync(join(CERT_DIR, 'privkey.pem'))
+	}, app).listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`))
 })
