@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 					break
 
 				case 'net':
-					const room = new Room(`ws://${location.host}/game/rooms/`)
+					const room = new Room(`wss://${location.host}/game/rooms/`)
 
 					menu.active = 1
 					const [roomMenuHost, roomMenuJoin] =

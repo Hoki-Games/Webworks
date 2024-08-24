@@ -14,7 +14,11 @@ const GAMELIST_PATH = resolve(__dirname + '/gamelist.html')
 
 
 const app = express()
-expressWs(app)
+const server = https.createServer({
+	cert: readFileSync(join(CERT_DIR, 'fullchain.pem')),
+	key: readFileSync(join(CERT_DIR, 'privkey.pem'))
+}, app)
+expressWs(app, server)
 
 Promise.all([
 	import('./routes/tictactoe'),
@@ -99,8 +103,5 @@ Promise.all([
 
 	//? Server Start
 
-	https.createServer({
-		cert: readFileSync(join(CERT_DIR, 'fullchain.pem')),
-		key: readFileSync(join(CERT_DIR, 'privkey.pem'))
-	}, app).listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`))
+	server.listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`))
 })

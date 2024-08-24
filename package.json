@@ -1,5 +1,5 @@
 {
-	"main": "main.ts",
+	"main": "main.js",
 	"devDependencies": {
 		"@types/cookie": "^0.5.1",
 		"@types/express": "^4.17.17",

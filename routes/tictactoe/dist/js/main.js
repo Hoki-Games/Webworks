@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     runGame();
                     break;
                 case 'net':
-                    const room = new Room(`ws://${location.host}/game/rooms/`);
+                    const room = new Room(`wss://${location.host}/game/rooms/`);
                     menu.active = 1;
                     const [roomMenuHost, roomMenuJoin] = roomPage.querySelectorAll('.button');
                     const [upperText, lowerText] = messagePage.querySelectorAll('.text');

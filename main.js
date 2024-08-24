@@ -39,7 +39,11 @@ const NOT_FOUND_PATH = (0, node_path_1.resolve)(__dirname + '/404.html');
 const ERROR_PATH = (0, node_path_1.resolve)(__dirname + '/500.html');
 const GAMELIST_PATH = (0, node_path_1.resolve)(__dirname + '/gamelist.html');
 const app = (0, express_1.default)();
-(0, express_ws_1.default)(app);
+const server = node_https_1.default.createServer({
+    cert: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'fullchain.pem')),
+    key: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'privkey.pem'))
+}, app);
+(0, express_ws_1.default)(app, server);
 Promise.all([
     Promise.resolve().then(() => __importStar(require('./routes/tictactoe'))),
     Promise.resolve().then(() => __importStar(require('./routes/rooms'))),
@@ -93,8 +97,5 @@ Promise.all([
         });
     }));
     //? Server Start
-    node_https_1.default.createServer({
-        cert: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'fullchain.pem')),
-        key: (0, node_fs_1.readFileSync)((0, node_path_1.join)(CERT_DIR, 'privkey.pem'))
-    }, app).listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`));
+    server.listen(PORT, () => console.log(`https://localhost:${PORT} is listening...`));
 });
