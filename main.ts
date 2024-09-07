@@ -47,11 +47,18 @@ Promise.all([
 		.ws('/rooms', rooms.default)
 	)
 
+
 	//? Demos Router
 
 	.use('/demo', express.Router()
 		.use('/wengine', wengine.default)
 	)
+
+
+	//? Magnet Redirector
+
+	.get('/magnet:', (req, res) =>
+		res.redirect(`magnet:?${req.url.match(/\/magnet:\/?\?(.+$)/)![1]}`))
 
 
 	//? Favicon File

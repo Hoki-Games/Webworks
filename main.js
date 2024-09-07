@@ -65,6 +65,8 @@ Promise.all([
         //? Demos Router
         .use('/demo', express_1.default.Router()
         .use('/wengine', wengine.default))
+        //? Magnet Redirector
+        .get('/magnet:', (req, res) => res.redirect(`magnet:?${req.url.match(/\/magnet:\/?\?(.+$)/)[1]}`))
         //? Favicon File
         .get('/favicon.ico', (req, res) => (0, node_fs_1.createReadStream)(FAVICON_PATH).pipe(res))
         //? Default Redirect
